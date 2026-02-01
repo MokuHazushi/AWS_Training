@@ -1,0 +1,1 @@
+The goal is to create 2 S3 buckets, one private and one public then use a lambda function to automatically move all items upload to the public bucket to the private one.

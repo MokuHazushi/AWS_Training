@@ -1,0 +1,14 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "moku-s3-public-bucket"
+        },
+        "object": {
+          "key": "testImg.JPG"
+        }
+      }
+    }
+  ]
+}
