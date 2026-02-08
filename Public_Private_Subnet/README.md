@@ -16,6 +16,7 @@ The goal is this project is two create a simple 1 front-end, 1 back-end server a
 2) Tasks to enable back-end:
     - Create a subnet inside VPC
     - Create and attach a route table that only route traffic inside VPC
+    - Create a NAT gateway to allow EC2 to communicate safely with the internet
     - Launch EC2 with back-end code in private VPC
     - Check front-end EC2 can communicate with back-end EC2
     - Check back-end EC2 is not accessible from the internet
@@ -23,8 +24,7 @@ The goal is this project is two create a simple 1 front-end, 1 back-end server a
 # Security
 
 1) ACLs:
-    - Create and attach ACL to public subnet that allows traffic from/to the internet
-    - Create and attatch ACL to private subnet that allows traffic from/to public subnet
+    - In most cases no need to touch ACLs.
 
 1) Security groups
     - Create and attach security group that allows traffic from/to the internet to front-end EC2
@@ -37,5 +37,11 @@ The goal is this project is two create a simple 1 front-end, 1 back-end server a
 # Best practices recommendation
 
 - Even if VPC default route table enable local traffic by default, attaching a custom local traffic route table to private subnets make intention clear and indirectly document usage.
-- Even if route table control traffic, always set-up ACLs AND security groups
+- Even if route table control traffic, always set-up security groups
+
+# Learnings
+
+- NetworkManager IAM requires both AWS managed 'NetworkManager' policies and 'EC2ReadOnly' policies, otherwise actions like editting subnets settings are blocked
+- ACLs are not usually required for security because they are hard to manage at scale. For example outbound http traffic goes to a port initiated by client, thus it will require to open lot of ports on outbound rule of ACL.
+- By default security groups block incoming traffic from internet, including ssh port 22 traffic.
 
